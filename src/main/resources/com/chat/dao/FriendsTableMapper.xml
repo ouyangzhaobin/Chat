@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chat.dao.FriendsTableMapper">
+
+    <!--    增加用户id和好友id的好友关系-->
+    <insert id="addFriendsTable" parameterType="friendstable">
+        insert into test.friendstable(F_ID,F_UserID,F_FriendID,F_Name,F_FriendTypeID,F_FriendGroupsID)
+        values (#{F_ID},#{F_UserID},#{F_FriendID},#{F_Name},#{F_FriendTypeID},#{F_FriendGroupsID});
+    </insert>
+    <!--    删除用户id和好友id的好友关系-->
+    <delete id="deleteFriendsTable" parameterType="int">
+        delete from test.friendstable where F_ID = #{F_ID}
+    </delete>
+    <!--    更新用户id与好友id的关系-->
+    <update id="updateFriendsTable" parameterType="friendstable">
+        update test.friendstable
+        set F_UserID=#{F_UserID},F_FriendID=#{F_FriendID},F_Name=#{F_Name},F_FriendTypeID=#{F_FriendTypeID},F_FriendGroupsID=#{F_FriendGroupsID}
+        where F_ID=#{F_ID}
+    </update>
+    <!--    查询用户id的好友id条件-->
+    <select id="getUserIDFriend" parameterType="map" resultMap="FriendsTableMap">
+            select F_ID,F_UserID, F_FriendID ,F_Name,F_FriendTypeID,F_FriendGroupsID from test.friendstable
+            where F_UserID=#{F_UserID} and F_FriendID = #{F_FriendID}
+    </select>
+    <resultMap id="FriendsTableMap" type="com.chat.pojo.FriendsTable">
+        <result column="F_ID" property="F_ID"/>
+        <result column="F_UserID" property="F_UserID"/>
+        <result column="F_FriendID" property="F_FriendID"/>
+        <result column="F_Name" property="F_Name"/>
+        <result column="F_FriendTypeID" property="F_FriendTypeID"/>
+        <result column="F_FriendGroupsID" property="F_FriendGroupsID"/>
+    </resultMap>
+
+</mapper>

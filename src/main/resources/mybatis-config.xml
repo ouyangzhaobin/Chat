@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- configuration核心配置文件-->
+<configuration>
+    <!--    引入外部配置文件-->
+    <properties resource="db.properties">
+    </properties>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+<!--        <setting name="autoMappingBehavor" value="NONE"/>-->
+    </settings>
+
+    <!--    可以给实体类起别名-->
+    <typeAliases>
+        <package name="com.chat.pojo"/>
+    </typeAliases>
+    <!--    default的值所对应的为默认环境-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="root"/>
+                <property name="password" value="123456"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper class="com.chat.dao.FriendsTableMapper"></mapper>
+        <mapper class="com.chat.dao.FriendGroupsMapper"></mapper>
+        <mapper class="com.chat.dao.FriendsEvaluationMapper"></mapper>
+        <mapper class="com.chat.dao.MessagesMapper"></mapper>
+        <mapper class="com.chat.dao.UserStateMapper"></mapper>
+    </mappers>
+</configuration>

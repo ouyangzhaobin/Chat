@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chat.dao.FriendGroupsMapper">
+    <select id="getUserGroups" parameterType="map" resultMap="UserGroupsMap">
+        select FG_ID,FG_Name,FG_UserID from test.friendgroups
+        where FG_ID = #{FG_ID} and FG_UserID = #{FG_UserID}
+    </select>
+    <resultMap id="UserGroupsMap" type="com.chat.pojo.FriendGroups">
+        <result column="FG_ID" property="FG_ID"/>
+        <result column="FG_Name" property="FG_Name"/>
+        <result column="FG_UserID" property="FG_UserID"/>
+    </resultMap>
+
+</mapper>

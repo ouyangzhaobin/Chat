@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chat.dao.MessagesMapper">
+    <!--    查询含有用户id和好友id的消息记录-->
+    <select id="getAllMessagesByUserID" parameterType="map" resultMap="AllSentMessagesByUserID">
+        select M_ID,M_PostMessages,M_status,M_Time,M_MessagesTypeID,M_FromUserID,M_ToUserID
+        from test.messages
+        <where>
+            <if test="M_FromUserID != null">
+                M_FromUserID = #{M_FromUserID}
+            </if>
+            <if test="M_ToUserID != null">
+                or M_ToUserID = #{M_ToUserID}
+            </if>
+        </where>
+    </select>
+    <resultMap id="AllSentMessagesByUserID" type="com.chat.pojo.Messages">
+        <result column="M_ID" property="M_ID"/>
+        <result column="M_PostMessages" property="M_PostMessages"/>
+        <result column="M_status" property="M_status"/>
+        <result column="M_Time" property="M_Time"/>
+        <result column="M_MessagesTypeID" property="M_MessagesTypeID"/>
+        <result column="M_FromUserID" property="M_FromUserID"/>
+        <result column="M_ToUserID" property="M_ToUserID"/>
+    </resultMap>
+    <!--    增加用户id和好友id的消息记录-->
+    <insert id="addMessages" parameterType="messages">
+        insert into test.messages ( M_ID,M_PostMessages,M_status,M_Time,M_MessagesTypeID,M_FromUserID,M_ToUserID)
+        values (#{M_ID},#{M_PostMessages},#{M_status},#{M_Time},#{M_MessagesTypeID},#{M_FromUserID},#{M_ToUserID});
+    </insert>
+</mapper>
